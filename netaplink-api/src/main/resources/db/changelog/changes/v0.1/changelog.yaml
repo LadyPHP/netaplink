@@ -1,0 +1,8 @@
+databaseChangeLog:
+  - changeSet:
+      id: add_user
+      author: Koloskova Aleksandra
+      changes:
+        - sqlFile:
+            path: add_user.sql
+            relativeToChangelogFile: true

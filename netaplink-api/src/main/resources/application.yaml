@@ -1,0 +1,33 @@
+server:
+  port: 8078
+spring:
+  datasource:
+    hikari:
+      maximum-pool-size: 3
+      leak-detection-threshold: 10000 # 10 seconds
+      pool-name: Report_CP
+    platform: postgres
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5433/netaplink
+    username: netaplink
+    password: netaplink2021
+  liquibase:
+    liquibase-schema: liquibase
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    info:
+      enabled: true
+    prometheus:
+      enabled: true
+    health:
+      enabled: true
+      show-details: always
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+  api-docs:
+    enabled: true

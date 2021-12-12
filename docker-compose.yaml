@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  postgres:
+    build:
+      context: docker_settings
+      dockerfile: Dockerfile.postgres
+    ports:
+      - "5433:5432"
+    environment:
+      - POSTGRES_USER=netaplink
+      - POSTGRES_DB=netaplink
+      - POSTGRES_PASSWORD=netaplink2021
+    volumes:
+      - "./db-data:/var/lib/postgresql/data"
+
+  netaplink-api:
+    build:
+      context: docker_settings
+      dockerfile: Dockerfile.api
+    environment:
+      - PORT=8078
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres/netaplink
+    image: 'netaplink-api'
+    ports:
+      - "8078:8078"
+    depends_on:
+      - postgres
+
+  netaplink-ui:
+    build:
+      context: docker_settings
+      dockerfile: Dockerfile.ui
+    environment:
+      - PORT=8079
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres/netaplink
+      - NETAPLINK_API=http://localhost:8078
+    image: 'netaplink-ui'
+    ports:
+      - "8079:8079"
+    depends_on:
+      - postgres
+      - netaplink-api
+

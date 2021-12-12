@@ -1,0 +1,8 @@
+server:
+  port: 8079
+spring:
+  freemarker:
+    cache: false
+    suffix: .ftl
+feign:
+  netaplinkapi: "http://localhost:8078"
