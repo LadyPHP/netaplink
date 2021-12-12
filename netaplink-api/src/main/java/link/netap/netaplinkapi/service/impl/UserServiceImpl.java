@@ -1,7 +1,6 @@
 package link.netap.netaplinkapi.service.impl;
 
 import link.netap.netaplinkapi.dto.UserDto;
-import link.netap.netaplinkapi.dto.UsersDto;
 import link.netap.netaplinkapi.entity.User;
 import link.netap.netaplinkapi.mapper.UserMapper;
 import link.netap.netaplinkapi.repository.UserRepository;
@@ -13,6 +12,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -25,8 +25,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto addUser(UserDto userDto) {
         User user = new User();
-        if (userDto == null || userDto.getLogin().length() < 3) return null;
-
         user.setLogin(userDto.getLogin());
         user.setName(userDto.getName());
         user.setSurname(userDto.getSurname());
@@ -45,7 +43,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UsersDto getUsers() {
-        return null;
+    @Transactional(readOnly = true)
+    public List<UserDto> getUsers() {
+        List<User> users = userRepository.getActiveUsers();
+        if (users.isEmpty()) return null;
+        return UserMapper.convertToDtoList(users);
     }
 }

@@ -12,12 +12,16 @@
 <body>
 <h1>Portfolio</h1>
 
-<#if user?? >
-    Name: ${user.name}<br>
-    Surname: ${user.surname}<br>
-    Login: ${user.login}<br>
+<#if users?? >
+    <#list users as user>
+        <div style="margin-bottom: 30px;">
+            <p>Name: ${user.name}</p>
+            <p>Surname: ${user.surname}</p>
+            <p>Login: ${user.login}</p>
+        </div>
+    </#list>
 <#else>
-    <div>User not found.</div>
+    <div>Active users not found.</div>
 </#if>
 
 </body>

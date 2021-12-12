@@ -12,6 +12,9 @@
 <body>
 <h1>Registration form</h1>
 
+<#if message?? >
+    <span style="color: red">${message}</span>
+</#if>
 <#if user?? >
     Your submitted data<br>
     Name: ${user.name}<br>

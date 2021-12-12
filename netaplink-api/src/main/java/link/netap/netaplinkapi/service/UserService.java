@@ -1,12 +1,13 @@
 package link.netap.netaplinkapi.service;
 
 import link.netap.netaplinkapi.dto.UserDto;
-import link.netap.netaplinkapi.dto.UsersDto;
+
+import java.util.List;
 
 public interface UserService {
     UserDto addUser(UserDto userDto);
 
     UserDto getUser(Long id);
 
-    UsersDto getUsers();
+    List<UserDto> getUsers();
 }
